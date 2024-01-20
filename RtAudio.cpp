@@ -3320,6 +3320,7 @@ bool RtApiJack :: callbackEvent( unsigned long nframes )
 #include "asiodrivers.h"
 #include <cmath>
 
+extern AsioDrivers *asioDrivers;
 static AsioDrivers drivers;
 static ASIOCallbacks asioCallbacks;
 static ASIODriverInfo driverInfo;
@@ -3354,6 +3355,9 @@ RtApiAsio :: RtApiAsio()
     error( RTAUDIO_WARNING );
   }
   coInitialized_ = true;
+
+  if ( !asioDrivers )
+    asioDrivers = &drivers;
 
   // Check whether another RtAudio instance has an ASIO stream open.
   if ( streamOpen ) {
